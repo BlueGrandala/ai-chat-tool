@@ -9,10 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         mangle: false,
         headerIds: false
     });
-    
-    // 初始化 highlight.js
-    hljs.highlightAll();
-    
+
     // 获取聊天框和输入框
     const chatBox = document.getElementById("chat-box");
     const userInput = document.getElementById("user-input");
@@ -63,21 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 使用 innerHTML 插入渲染后的内容
         aiMessageDiv.innerHTML = renderedContent;
-
-        // 新增代码：高亮动态生成的代码块
-        aiMessageDiv.querySelectorAll('pre code').forEach((block) => {
-        // 移除可能的旧高亮
-        block.classList.remove('hljs');
-        // 添加基础高亮类
-        block.classList.add('hljs');
-        // 执行高亮
-        hljs.highlightElement(block);
-          
-        // 可选：添加语言类名
-        const language = block.className.match(/language-(\w+)/)?.[1];
-        if (language && hljs.getLanguage(language)) {
-              block.classList.add(`language-${language}`);
-          }
 
         // 重新渲染 MathJax 公式
         if (window.MathJax) {

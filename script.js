@@ -182,21 +182,24 @@ saveButton.addEventListener('click', () => {
         } else {
             messageDiv.textContent = content; // AI 消息由 updateAIMessage 处理
         }
-
+        currentAiMessageId = null;
         chatBox.appendChild(messageDiv);  // 将新消息添加到聊天框，不清空之前的内容
         chatBox.scrollTop = chatBox.scrollHeight;  // 滚动到最底部
     }
 
     // 更新 AI 回复内容
     function updateAIMessage(content, reasoningContent = "") {
-        let aiMessageDiv = chatBox.querySelector(".ai:last-child"); // 获取最后一个 AI 消息
+        let aiMessageDiv = chatBox.querySelector(`#${currentAiMessageId}`); // 根据 id 查找当前活动的 aiMessageDiv
         if (!aiMessageDiv) {
             // 如果没有 AI 消息，则创建一个新的
             aiMessageDiv = document.createElement("div");
+            aiMessageDiv.id = `ai-message-${Date.now()}`; // 使用时间戳生成唯一 id
             aiMessageDiv.classList.add("ai");
+            currentAiMessageId = aiMessageDiv.id;
             chatBox.appendChild(aiMessageDiv);
         }
 
+        
         // 在 AI 消息前添加 'ai:' 前缀
         let finalContent = `AI: `;
 
@@ -214,6 +217,22 @@ saveButton.addEventListener('click', () => {
         // 使用 innerHTML 插入渲染后的内容
         aiMessageDiv.innerHTML = renderedContent;
 
+        // 新增代码：高亮动态生成的代码块
+        aiMessageDiv.querySelectorAll('pre code').forEach((block) => {
+        // 移除可能的旧高亮
+        block.classList.remove('hljs');
+        // 添加基础高亮类
+        block.classList.add('hljs');
+        // 执行高亮
+        hljs.highlightElement(block);
+          
+        // 可选：添加语言类名
+        const language = block.className.match(/language-(\w+)/)?.[1];
+        if (language && hljs.getLanguage(language)) {
+              block.classList.add(`language-${language}`);
+          }
+      });
+
         // 重新渲染 MathJax 公式
         if (window.MathJax) {
             window.MathJax.typesetPromise([aiMessageDiv]);
@@ -221,6 +240,7 @@ saveButton.addEventListener('click', () => {
 
         chatBox.scrollTop = chatBox.scrollHeight;  // 滚动到最底部
     }
+
 
     // 发送请求并处理流式数据
     function sendMessage() {

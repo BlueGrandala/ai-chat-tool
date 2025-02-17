@@ -20,6 +20,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- 隐藏/显示侧边栏的按钮 -->
+  <button id="toggle-sidebar">隐藏侧边栏</button>
+      <!-- 左侧边栏 -->
+      <div class="sidebar">
+      <div class="file-manager">
+        <input type="text" id="file-name" placeholder="文件名">
+        <button id="new-file">新建对话</button>
+        <button id="save-button">保存当前内容</button>
+        <ul id="file-list"></ul>
+      </div>
+    </div>
     <div class="chat-container">
         <div class="chat-box" id="chat-box"></div>
         <textarea id="model" placeholder="select model" rows="1"></textarea>

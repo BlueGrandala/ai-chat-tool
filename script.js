@@ -73,6 +73,7 @@ function selectFile(fileId) {
   const content = localStorage.getItem(fileId); // 获取文件内容
   const history = document.createElement("div");
   const Rendered = marked.parse(content || ''); // 渲染 Markdown
+  conversationHistory = [];
   conversationHistory.push({role:'user',content:content});
   history.innerHTML = Rendered;
   // 新增代码：高亮动态生成的代码块

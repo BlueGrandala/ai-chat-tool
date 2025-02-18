@@ -1,6 +1,7 @@
 const fileList = document.getElementById('file-list');
 const newFileBtn = document.getElementById('new-file');
 const fileNameInput = document.getElementById('file-name');
+const StrictTex = 'NOTICE:if you want to output tex formulas, you should use $...$ (for inline formulas) or $$...$$ syntax if the user didn not specify. ';
 
 // 获取按钮和侧边栏元素
 const toggleButton = document.getElementById('toggle-sidebar');
@@ -75,6 +76,7 @@ function selectFile(fileId) {
   const Rendered = marked.parse(content || ''); // 渲染 Markdown
   conversationHistory = [];
   conversationHistory.push({role:'user',content:content});
+  conversationHistory.push({role:'system',content:StrictTex});
   history.innerHTML = Rendered;
   // 新增代码：高亮动态生成的代码块
   history.querySelectorAll('pre code').forEach((block) => {

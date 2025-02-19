@@ -111,21 +111,24 @@ body {
   background-color: #3498db;
 }
 .chat-container {
-  width: 1200px;
+  width: 70vw;
   height: 600px;
   background-color: rgba(240, 240, 240, 0.7);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
+  justify-content: center; /* 水平居中 */
   flex-direction: column;
   padding: 20px;
   margin-left: auto; /* 自动调整左边距 */
-  margin-right: 250px; /* 自动调整右边距 */
+  margin-right: 13vw; /* 自动调整右边距 */
   transition: margin-left 0.3s ease; /* 添加动画效果 */
 }
 
 .sidebar.hidden + .chat-container {
-  margin-left: 0; /* 侧边栏隐藏时，左边距为 0 */
+  width: 90vw;
+  margin-left: auto; /* 侧边栏隐藏时，左边距为 0 */
+  margin-right: 13vw; /* 自动调整右边距 */
 }
 
 .chat-box {

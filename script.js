@@ -1,7 +1,7 @@
 const fileList = document.getElementById('file-list');
 const newFileBtn = document.getElementById('new-file');
 const fileNameInput = document.getElementById('file-name');
-const StrictTex = 'NOTICE:if you want to output math formulas, you should ONLY use $...$ (for inline formulas) or $$...$$ syntax, if the user didn not specify. ';
+const StrictTex = 'NOTICE:if you want to output math formulas, you should ONLY use $...$ (for inline formulas) or $$...$$ syntax, and DO NOT use (...) syntax, if the user didn not specify. ';
 
 // 获取按钮和侧边栏元素
 const toggleButton = document.getElementById('toggle-sidebar');

@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>
         MathJax = {
             tex: {
@@ -20,10 +21,51 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- 隐藏/显示侧边栏的按钮 -->
+  <button id="toggle-sidebar">隐藏侧边栏</button>
+      <!-- 左侧边栏 -->
+      <div class="sidebar">
+      <button id="list">文件列表</button>
+      <div class="file-manager">
+        <input type="text" id="file-name" placeholder="文件名">
+        <button id="new-file">新建对话</button>
+        <button id="save-button">保存当前内容</button>
+        <ul id="file-list"></ul>
+        
+      </div>
+      <script>
+        document.getElementById('list').addEventListener('click', () => {
+        document.querySelector('.file-manager').classList.toggle('inactive');
+        });
+    </script>
+      <!-- 配置管理按钮 -->
+        <button class="config-toggle">⚙️ 配置管理</button>
+        <script>
+            document.querySelector('.config-toggle').addEventListener('click', () => {
+            document.querySelector('.config-panel').classList.toggle('active');
+        });
+        </script>
+
+        <!-- 折叠面板容器 -->
+        <div class="config-panel">
+        <!-- 配置表单内容 -->
+            <input id="Model" placeholder="your model name">
+            <input id="userkey" placeholder="API Key">
+            <button id="save-config">保存当前配置</button>
+            <script>
+                const yourModel = document.getElementById('Model').value;
+                const yourkey =  document.getElementById('userkey').value;
+                const configbtn = document.getElementById('save-config');
+                const CONFIG = {key : yourkey , model: yourModel };
+                configbtn.addEventListener('click',()=>{
+                    localStorage.setItem('Userconfig',JSON.stringify(CONFIG));
+                    alert('保存成功');
+                });
+            </script>
+        </div>
+    </div>
     <div class="chat-container">
         <div class="chat-box" id="chat-box"></div>
-        <textarea id="model" placeholder="select model" rows="1"></textarea>
-        <textarea id="key" placeholder="api key" rows="1"></textarea>
         <textarea id="maxtoken" placeholder="max token" rows="1"></textarea>
         <textarea id="user-input" placeholder="Type your message..." rows="2"></textarea>
         <button id="send-btn">Send</button>

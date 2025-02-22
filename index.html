@@ -53,7 +53,7 @@
             <input id="userkey" placeholder="API Key">
             <button id="save-config">保存当前配置</button>
             <script>
-                
+                const configbtn = document.getElementById('save-config');
                 configbtn.addEventListener('click',()=>{
                     const yourModel = document.getElementById('Model').value;
                     const yourkey =  document.getElementById('userkey').value;
